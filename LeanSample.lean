@@ -64,3 +64,36 @@ theorem l6: ((((A→B)→A)→A)→B)→B := by
   intros
   exact h2
   done
+
+theorem l7: (A ∧ B) ∧ C → A ∧ (B ∧ C) := by
+  intros
+  rename_i h0
+  cases h0
+  rename_i h1 h2
+  constructor
+  exact h1.left
+  constructor
+  exact h1.right
+  exact h2
+  done
+
+theorem l8: ((A ∧ B) → C ) → (A → (B → C)) := by
+  intros
+  rename_i h0 h1 h2
+  apply h0
+  exact And.intro h1 h2
+  done
+
+theorem l9: (A ∨ B ) ∨ C → A ∨ ( B ∨ C) := by
+  intros
+  rename_i h0
+  cases h0
+  rename_i h1
+  cases h1 with
+  | inl h2 =>
+    apply Or.inl
+    exact h2
+  | inr h3 => exact Or.inr (Or.inl h3)
+  rename_i h4
+  exact Or.inr (Or.inr h4)
+  done
